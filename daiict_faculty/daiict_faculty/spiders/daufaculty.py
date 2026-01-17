@@ -103,11 +103,11 @@ class DaiictFacultySpider(scrapy.Spider):
 
 
         yield {
-            "Name": self.clean(name),
-            "Education / PhD": self.clean(education),
-            "Mail": self.clean(mail),
-            "Bio": bio,
-            "Specialization": specialization,
-            "Research": research,
-            "Publications": publications
+            "name": self.clean(name),
+            "education / PhD": self.clean(education),
+            "mail": self.clean(mail),
+            "bio": bio,
+            "specialization": specialization,
+            "research": research,
+            "publications": publications
         }
