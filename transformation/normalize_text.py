@@ -68,3 +68,71 @@ def resolved_research(research, bio, specialization):
     if normalized_research:
         return normalized_research
     return infer_research_from_other_fields(bio, specialization)
+
+def clean_publications(text):
+    """
+    Cleans and normalizes publication text into a structured list of publications.
+    """
+    if not isinstance(text, str) or not text.strip():
+        return []
+
+    # 1. Remove HTML tags
+    text = re.sub(r"<.*?>", " ", text)
+
+    # 2. Normalize separators (•, |, ;, newline → ||)
+    text = re.sub(r"[•|;\n]+", "||", text)
+
+    # 3. Remove URLs and DOIs
+    text = re.sub(r"https?://\S+", "", text)
+    text = re.sub(r"\bdoi:\S+", "", text, flags=re.IGNORECASE)
+
+    # 4. Remove excessive punctuation
+    text = re.sub(r"[^\w\s(),.-]", " ", text)
+
+    # 5. Normalize whitespace
+    text = re.sub(r"\s+", " ", text).strip()
+
+    # 6. Split into individual publications
+    publications = [p.strip() for p in text.split("||") if len(p.strip()) > 20]
+
+    cleaned_publications = []
+    seen = set()
+
+    for pub in publications:
+        pub_lower = pub.lower()
+
+        # 7. Remove year-only or noise entries
+        if re.fullmatch(r"\(?\d{4}\)?", pub_lower):
+            continue
+
+        # 8. De-duplicate using normalized signature
+        signature = re.sub(r"\d{4}", "", pub_lower)
+        signature = re.sub(r"\W+", "", signature)
+
+        if signature not in seen:
+            seen.add(signature)
+            cleaned_publications.append(pub)
+
+    return cleaned_publications
+
+def extract_paper_topics(citation_list):
+    topics = []
+    for citation in citation_list:
+        # Split by commas first (authors are usually before the first comma)
+        parts = citation.split(",")
+        
+        if len(parts) > 1:
+            # The topic usually starts after the author list
+            # Find the segment that looks like a title (before journal names like Springer, IEEE, etc.)
+            for segment in parts[1:]:
+                seg = segment.strip()
+                # Heuristic: skip if segment contains journal/publisher keywords
+                if not re.search(r"(Springer|IEEE|IETE|Journal|World Scientific|Taylor Francis|Circuits|Devices|Systems|Review|Processing)", seg, re.I):
+                    topics.append(seg)
+                    break
+        else:
+            topics.append(citation.strip())
+    return topics
+
+
+
