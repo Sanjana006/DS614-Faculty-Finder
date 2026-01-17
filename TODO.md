@@ -1,0 +1,3 @@
+- [x] Fix combine_texts function in normalize_text.py to accept four parameters instead of one row object
+- [ ] Fix incomplete import in data_preprocessing.ipynb
+- [x] Add pandas and nltk to requirements.txt
