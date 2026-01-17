@@ -39,7 +39,7 @@ class Data_insertion:
     research,
     publications,
     combined_text
-    )values(?,?,?,?,?,?,?,?)"""
+    )values(?,?,?,?,?,?,?,?,?)"""
 
     conn=None
     try:
