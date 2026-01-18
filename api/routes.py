@@ -72,7 +72,7 @@ def get_faculty_by_id(faculty_id:str):
          WHERE faculty_id = ?
             """,(faculty_id,)
     )
-    output_resultset=cursor.fetchonclee()
+    output_resultset=cursor.fetchone()
     if not output_resultset:
       raise HTTPException(status_code=404,detail="Faculty not found")
 

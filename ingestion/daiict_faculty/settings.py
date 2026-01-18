@@ -1,4 +1,4 @@
-# Scrapy settings for daiict_scraper project
+# Scrapy settings for daiict_faculty project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,16 +7,16 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "daiict_scraper"
+BOT_NAME = "daiict_faculty"
 
-SPIDER_MODULES = ["daiict_scraper.spiders"]
-NEWSPIDER_MODULE = "daiict_scraper.spiders"
+SPIDER_MODULES = ["daiict_faculty.spiders"]
+NEWSPIDER_MODULE = "daiict_faculty.spiders"
 
 ADDONS = {}
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "daiict_scraper (+http://www.yourdomain.com)"
+#USER_AGENT = "daiict_faculty (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -41,13 +41,13 @@ DOWNLOAD_DELAY = 1
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "daiict_scraper.middlewares.DaiictScraperSpiderMiddleware": 543,
+#    "daiict_faculty.middlewares.DaiictFacultySpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    "daiict_scraper.middlewares.DaiictScraperDownloaderMiddleware": 543,
+#    "daiict_faculty.middlewares.DaiictFacultyDownloaderMiddleware": 543,
 #}
 
 # Enable or disable extensions
@@ -59,7 +59,7 @@ DOWNLOAD_DELAY = 1
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    "daiict_scraper.pipelines.DaiictScraperPipeline": 300,
+#    "daiict_faculty.pipelines.DaiictFacultyPipeline": 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -85,3 +85,10 @@ DOWNLOAD_DELAY = 1
 
 # Set settings whose default value is deprecated to a future-proof value
 FEED_EXPORT_ENCODING = "utf-8"
+FEEDS = {
+    "data/raw/Faculty_DAIICT.csv": {
+        "format": "csv",
+        "encoding": "utf-8",
+        "overwrite": True,
+    }
+}

@@ -8,6 +8,6 @@
 from itemadapter import ItemAdapter
 
 
-class DaiictScraperPipeline:
+class DaiictFacultyPipeline:
     def process_item(self, item, spider):
         return item
