@@ -2,10 +2,11 @@ import sqlite3
 from fastapi import APIRouter, HTTPException,Query
 from typing import List, Optional
 from storage.db_connection import SqlConnectionManager
+from config.settings import DATABASE_PATH
 
 router =APIRouter()
 
-DB_PATH="data/database/faculty.db"
+DB_PATH=DATABASE_PATH
 
 @router.get("/faculty")# to get all faculty records
 def get_all_faculty_details():
