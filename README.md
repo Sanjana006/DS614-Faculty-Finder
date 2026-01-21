@@ -23,7 +23,6 @@ Faculty information on university websites is often scattered across multiple pa
 | Data Storage | SQLite3 | Lightweight relational database for persistence |
 | API & Serving | FastAPI, Uvicorn | Serving faculty data as JSON via REST API |
 | Configuration & Utilities | Python Logging, Pathlib / OS | Logging, error handling, and path management |
-| Development Environment | Virtual Environment (venv), Git, GitHub | Dependency isolation and version control |
 
 ---
 
