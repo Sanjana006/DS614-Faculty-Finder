@@ -266,6 +266,14 @@ Overall, this approach makes the pipeline fault-tolerant, transparent, and suita
 
 ---
 
+# Beneftis
+
+The project is designed to be flexible and easy to adapt for different use cases. Configuration parameters such as file paths, database location, and pipeline execution flags can be modified through `config/settings.py` without changing the core code. The modular structure allows individual components—ingestion, transformation, storage, and API—to be run, tested, or extended independently. 
+
+Raw and cleaned datasets are preserved at each stage, enabling reproducibility and easy debugging. Overall, this design makes the project simple to configure, maintain, and extend for future enhancements or similar data engineering tasks.
+
+---
+
 # Limitations
 
 While the project provides a complete and functional data pipeline, it has certain limitations by design. The scraper is tailored specifically to the current structure of the DA-IICT website, and significant changes to the website layout may require updates to the scraping logic.
