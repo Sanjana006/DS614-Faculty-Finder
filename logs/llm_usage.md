@@ -282,7 +282,7 @@ http://127.0.0.1:8000/records
 
 This endpoint will return all stored data from the database in JSON format.
 
-## Prompt 5
+## Prompt 6
 Act as a senior backend/data engineer.
 List the recommended production-grade exception handling pattern for SQLite in Python
 and provide a concise checklist of best practices.
