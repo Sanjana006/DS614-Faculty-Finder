@@ -1,3 +1,7 @@
+'''
+this module contains functions to normalize and clean text data for faculty profiles.
+'''
+
 import re 
 import pandas as pd
 
@@ -27,7 +31,7 @@ def specialization_text_to_list(text):
     if not isinstance(text, str):
         return ["not_available"]
     return [a.strip().lower() for a in text.split(",")]
-
+#this function combines bio, research, specialization, and phd_field into a single text block
 def combine_texts(bio, research, specialization, phd_field):
     parts = []
     if isinstance(bio, str):

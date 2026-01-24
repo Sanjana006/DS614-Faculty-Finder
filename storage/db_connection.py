@@ -1,3 +1,7 @@
+'''
+Module for managing SQLite database connections and schema setup.
+'''
+
 import sqlite3
 from pathlib import Path
 import logging

@@ -1,3 +1,7 @@
+"""
+this module handles the insertion of faculty data into the database from a CSV file.
+it validates the data and uses parameterized queries to prevent SQL injection.
+"""
 import pandas as pd
 from pathlib import Path
 import logging
@@ -9,9 +13,11 @@ logger= logging.getLogger(__name__)
 REQUIRED_COLUMNS = ['faculty_id','name', 'mail', 'phd_field', 'specialization', 'bio', 'research', 'publications', 'combined_text']
 
 class Data_insertion:
+  
   def __init__(self,db_path:str):
     self.db=SqlConnectionManager(db_path)
 
+  # loads csv and validates required columns
   def load_csv(self,csv_path:str)->pd.DataFrame:
     path=Path(csv_path)
 
@@ -22,7 +28,7 @@ class Data_insertion:
     if missing_columns_name:
       raise ValueError(f"Missing required columns in CSV:{', '.join(missing_columns_name)}")
     return df
-  
+  # this function inserts data from csv into the database
   def insert_data(self,csv_path:str):
     logger.info("starting dat inseertion")
 

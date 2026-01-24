@@ -1,9 +1,8 @@
+''' this is the main script to run the entire data pipeline
+it includes scraping, transformation, and database insertion steps.'''
 import logging
 import sys
-import threading
 import uvicorn
-
-
 import sys
 import os
 
@@ -17,7 +16,7 @@ from transformation.transform_pipeline import transform_file
 from storage.database_insertion import Data_insertion
 from fastapi import FastAPI
 from ingestion.daiict_faculty.spiders.daufaculty import DaiictFacultySpider
-
+#this function runs the entire pipeline based on enabled steps
 def run_pipeline():
     loger=logging.getLogger(__name__)
     loger.info("Pipeline started")

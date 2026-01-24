@@ -1,3 +1,10 @@
+'''
+in this module we define the transformation pipeline for faculty data
+we read the raw csv file, apply normalization functions to relevant columns,
+and save the transformed data to a new csv file.
+'''
+
+
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -8,6 +15,8 @@ from transformation.normalize_text import (
     specialization_text_to_list,
     combine_texts,normalize_research,clean_publication
 )
+
+## this function adds faculty_id column to dataframe
 def add_faculty_id_df(df: pd.DataFrame, prefix: str = "DAU") -> pd.DataFrame:
     df_out = df.copy()
 
