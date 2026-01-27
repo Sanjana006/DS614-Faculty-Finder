@@ -160,6 +160,11 @@ These statistics confirm that the transformation pipeline successfully standardi
 
 This project is organized as a modular data engineering system where each component has a clear responsibility. The workflow is designed so that a reviewer can either inspect individual modules or run the complete pipeline end-to-end without confusion.
 
+## NOTE: Before running the pipeline(s), delete the below files from the project structure, for better experience.
+## - /data/raw/Faculty_DAIICT.csv
+## - /data/database/faculty.db
+## - /data/cleaned/transformed_faculty_data.csv
+
 ### Step 1: Clone the Repository and Prepare the Environment
 After cloning the repository, the reviewer installs the required dependencies listed in `requirements.txt`. All configurable parameters such as file paths, database location, and pipeline control flags are defined in `config/settings.py`. These settings decide whether the ingestion, transformation, and database stages should run, without requiring any changes to the core code.
 

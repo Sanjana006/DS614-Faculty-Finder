@@ -29,3 +29,4 @@ def run_scraping_pipeline():
     process.start()
     print("Scraping complete. Data saved to data/raw/Faculty_DAIICT.csv")
 
+run_scraping_pipeline()

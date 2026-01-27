@@ -1,52 +1,76 @@
-''' this is the main script to run the entire data pipeline
-it includes scraping, transformation, and database insertion steps.'''
-import logging
-import sys
-import uvicorn
+"""
+This script runs the complete data engineering pipeline:
+1. Ingestion (Web Scraping using Scrapy)
+2. Transformation (Data Cleaning and Normalization)
+3. Storage (SQLite Database Insertion)
+
+Each stage can be enabled or disabled using flags in config/settings.py.
+"""
+
 import sys
 import os
+import logging
+import subprocess
 
-# Add the parent directory to the system path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# Ensure the config directory is correctly structured and accessible
-from config.settings import RAW_DATA_PATH, CLEANED_DATA_PATH, DATABASE_PATH, ENABLE_SCRAPING, ENABLE_TRANSFORMATION, ENABLE_DATABASE_INSERTION
-from ingestion.run_scrapper import run_scraping_pipeline  
+from config.settings import (
+    RAW_DATA_PATH,
+    CLEANED_DATA_PATH,
+    DATABASE_PATH,
+    ENABLE_SCRAPING,
+    ENABLE_TRANSFORMATION,
+    ENABLE_DATABASE_INSERTION,
+)
+
 from transformation.transform_pipeline import transform_file
-from storage.database_insertion import Data_insertion
-from fastapi import FastAPI
-from ingestion.daiict_faculty.spiders.daufaculty import DaiictFacultySpider
-#this function runs the entire pipeline based on enabled steps
+from storage.database_insertion import DataInsertion
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+
 def run_pipeline():
-    loger=logging.getLogger(__name__)
-    loger.info("Pipeline started")
+    logger.info("Pipeline started")
+
     try:
-          if ENABLE_SCRAPING:
-              loger.info("Starting scraping step")
-              run_scraping_pipeline()
-              loger.info("Scraping completed successfully")
-    
-          if ENABLE_TRANSFORMATION:
-              loger.info("Starting transformation step")
-              transform_file(
-                 input_csv=RAW_DATA_PATH,
-                 output_csv=CLEANED_DATA_PATH
-               )
-              loger.info("Transformation completed successfully")
-    
-          if ENABLE_DATABASE_INSERTION:
-               loger.info("Starting database insertion step")
-               seeder = Data_insertion(db_path=DATABASE_PATH)
-               seeder.insert_data(CLEANED_DATA_PATH)
-               loger.info("Database insertion completed successfully")
-    
-               loger.info("Pipeline completed successfully")
-    
+        # ------------------ INGESTION ------------------
+        if ENABLE_SCRAPING:
+            logger.info("Starting ingestion (Scrapy) step")
+
+            # Run Scrapy in a separate process to avoid Twisted reactor issues
+            subprocess.run(
+                [sys.executable, "ingestion/run_scrapper.py"],
+                check=True,
+            )
+
+            logger.info("Ingestion completed successfully")
+
+        # ------------------ TRANSFORMATION ------------------
+        if ENABLE_TRANSFORMATION:
+            logger.info("Starting transformation step")
+
+            transform_file(
+                input_csv=RAW_DATA_PATH,
+                output_csv=CLEANED_DATA_PATH,
+            )
+
+            logger.info("Transformation completed successfully")
+
+        # ------------------ DATABASE INSERTION ------------------
+        if ENABLE_DATABASE_INSERTION:
+            logger.info("Starting database insertion step")
+
+            inserter = DataInsertion(db_path=DATABASE_PATH)
+            inserter.insert_data(CLEANED_DATA_PATH)
+
+            logger.info("Database insertion completed successfully")
+
+        logger.info("Pipeline completed successfully")
+
     except Exception as e:
-         loger.exception("Pipeline failed: %s", e)
-         raise RuntimeError(f"Pipeline error: {e}")
-   
-run_pipeline()
-print("Pipeline execution finished.")
+        logger.exception("Pipeline failed: %s", e)
+        raise RuntimeError(f"Pipeline error: {e}")
 
-
+if __name__ == "__main__":
+    run_pipeline()
+    print("Pipeline execution finished.")
