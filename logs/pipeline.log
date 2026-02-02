@@ -1,6 +1,0 @@
-2026-01-18 00:10:40,762 | INFO | storage.database_insertion | starting dat inseertion
-2026-01-18 00:10:40,771 | INFO | storage.db_connection | Faculty table created or already exists.
-2026-01-18 00:10:40,813 | INFO | storage.database_insertion | Sucessfully Inserted 105 records into the database
-2026-01-19 18:06:31,645 | INFO | storage.database_insertion | starting dat inseertion
-2026-01-19 18:06:31,679 | INFO | storage.db_connection | Faculty table created or already exists.
-2026-01-19 18:06:31,752 | INFO | storage.database_insertion | Sucessfully Inserted 105 records into the database

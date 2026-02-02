@@ -1,0 +1,3 @@
+APP_NAME = "Faculty Finder API"
+APP_VERSION = "1.0.0"
+DEFAULT_TOP_K = 5
