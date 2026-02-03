@@ -40,11 +40,24 @@ def get_recommendations(query, top_k=5):
     # build UI-friendly output
     results = []
     for score, row in scores[:top_k]:
+        name = row.get("name", "")
+        
+        # Generate faculty profile URL based on name
+        profile_url = row.get("profile_url", "")
+        
+        # Fallback only if missing in data (e.g. legacy index)
+        if not profile_url:
+            faculty_slug = name.lower().replace(" ", "-").replace(".", "")
+            profile_url = f"https://www.daiict.ac.in/faculty/{faculty_slug}"
+        
         results.append({
-            "name": row.get("name", ""),
+            "name": name,
             "specialization": row.get("specialization", ""),
             "research": row.get("research", ""),
             "mail": row.get("mail", ""),
+            "publications": row.get("publications", ""),
+            "pub_links": row.get("pub_links", []),   # if available
+            "profile_url": profile_url,
             "score": score
         })
 

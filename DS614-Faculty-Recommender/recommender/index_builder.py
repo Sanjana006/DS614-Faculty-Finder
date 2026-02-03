@@ -1,5 +1,6 @@
 import requests
 import pickle
+from pathlib import Path
 
 from recommender.preprocessing import preprocess
 from recommender.vectorizer import compute_tf, compute_idf, compute_tfidf
@@ -10,13 +11,20 @@ PHASE1_URL = "http://localhost:8000/faculty"
 
 def fetch_data():
 
-    print(f"Fetching from {PHASE1_FACULTY_URL}")
-
-    r = requests.get(PHASE1_FACULTY_URL)
-    r.raise_for_status()
-
-    data = r.json()
-    return data["results"]
+    from config.settings import PROJECT_ROOT
+    csv_path = PROJECT_ROOT.parent / "DS614-Faculty-Finder" / "data" / "cleaned" / "transformed_faculty_data.csv"
+    
+    print(f"Reading from {csv_path}")
+    import pandas as pd
+    
+    # Read CSV and treat specific columns as lists if generic parser fails, though preprocessing usually handles it.
+    # We simply convert the dataframe to a list of dicts to match the previous API response format.
+    df = pd.read_csv(csv_path)
+    
+    # Fill NaNs to avoid issues
+    df = df.fillna("")
+    
+    return df.to_dict("records")
 
 def safe(x):
     if x is None:
@@ -45,6 +53,7 @@ def build_index():
         tokens = preprocess(text)
         docs.append(tokens) #corpus
         meta.append(row)
+        print(row.keys()) 
 
     idf = compute_idf(docs)
 
@@ -54,6 +63,7 @@ def build_index():
         tf = compute_tf(tokens)
         vec = compute_tfidf(tf, idf)
         vectors.append(vec)
+        
 
     with open(INDEX_FILE, "wb") as f:
         pickle.dump((vectors, meta, idf), f)
