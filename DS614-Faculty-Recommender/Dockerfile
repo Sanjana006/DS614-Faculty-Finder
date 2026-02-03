@@ -1,12 +1,27 @@
-FROM python:3.12-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# System deps for sklearn / numpy
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
 
+# Install Python deps
+COPY requirements.txt .
+RUN python -m pip install --upgrade pip && \
+    python -m pip install --no-cache-dir -r requirements.txt
+
+# Copy entire project
 COPY . .
 
+# Expose API + Streamlit
 EXPOSE 8001
+EXPOSE 8501
 
-CMD ["uvicorn", "app.api.main:app", "--host", "0.0.0.0", "--port", "8001"]
+# Start BOTH services
+CMD ["bash", "-c", "\
+uvicorn app.api.main:app --host 0.0.0.0 --port 8001 & \
+streamlit run UI/streamlit_app.py --server.address 0.0.0.0 --server.port 8501 \
+"]
