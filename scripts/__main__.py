@@ -29,6 +29,10 @@ from storage.database_insertion import DataInsertion
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+project_root = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..")
+)
+
 def run_pipeline():
     logger.info("Pipeline started")
 
@@ -41,6 +45,7 @@ def run_pipeline():
             subprocess.run(
                 [sys.executable, "ingestion/run_scrapper.py"],
                 check=True,
+                cwd=project_root
             )
 
             logger.info("Ingestion completed successfully")
