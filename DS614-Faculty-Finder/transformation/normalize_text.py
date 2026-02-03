@@ -19,6 +19,8 @@ def clean_name(name):
         return ""
     # remove titles like dr/prog
     name = re.sub(r"\b(dr|prog)\.?\b", "", name, flags=re.IGNORECASE)
+    # remove text in parentheses (e.g. " (On Leave)")
+    name = re.sub(r"\(.*?\)", "", name)
     return name.strip().title()
 
 def validate_email(email):

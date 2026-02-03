@@ -167,6 +167,7 @@ class DaiictFacultySpider(scrapy.Spider):
                 "specialization": specialization,
                 "research": research,
                 "publications": publications,
+                "profile_url": response.url,
             }
 
         except DropItem:
