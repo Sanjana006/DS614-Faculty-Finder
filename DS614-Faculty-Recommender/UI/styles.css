@@ -1,0 +1,24 @@
+/* Top padding */
+.block-container {
+    padding-top: 2rem;
+}
+
+/* Text input styling */
+.stTextInput input {
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Button styling */
+.stButton > button {
+    border-radius: 12px;
+    height: 3em;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* Sidebar spacing */
+.css-1d391kg {
+    padding-top: 1rem;
+}
