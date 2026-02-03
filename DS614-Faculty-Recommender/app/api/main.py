@@ -4,7 +4,7 @@ import json
 
 from app.engine import search
 
-app = FastAPI(title="Faculty Recommender Phase-2")
+app = FastAPI(title="Faculty Recommender")
 
 
 @app.get("/recommend")
