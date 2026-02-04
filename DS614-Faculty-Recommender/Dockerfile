@@ -16,12 +16,9 @@ RUN python -m pip install --upgrade pip && \
 # Copy entire project
 COPY . .
 
-# Expose API + Streamlit
-EXPOSE 8001
-EXPOSE 8501
+# Expose default port (Railway will override this via the PORT env var)
+EXPOSE 8080
 
-# Start BOTH services
-CMD ["bash", "-c", "\
-uvicorn app.api.main:app --host 0.0.0.0 --port 8001 & \
-streamlit run UI/streamlit_app.py --server.address 0.0.0.0 --server.port 8501 \
-"]
+# The default command will start the Streamlit app.
+# For Railway, you can create two services and override the start command for each.
+CMD ["sh", "-c", "streamlit run UI/streamlit_app.py --server.port ${PORT:-8080} --server.address 0.0.0.0"]
