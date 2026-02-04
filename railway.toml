@@ -1,0 +1,9 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "DS614-Faculty-Recommender/Dockerfile"
+
+[deploy]
+# If the root directory is empty in Railway, we must point to the full subdirectory path
+startCommand = "streamlit run DS614-Faculty-Recommender/UI/streamlit_app.py --server.port ${PORT} --server.address 0.0.0.0"
+healthcheckPath = "/"
+restartPolicyType = "on_failure"
