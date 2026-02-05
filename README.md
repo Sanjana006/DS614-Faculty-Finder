@@ -90,6 +90,17 @@ The following screenshots demonstrate the Faculty Finder application in action:
 
 ## Team
 
-**Team Name:** The Data Engineers
-- **Sanjana Nathani** (ID: 202518002)
-- **Aksh Patel** (ID: 202518046)
+👩‍💻 **Sanjana Nathani**  
+- **Student ID:** 202518002  
+- **Program:** M.Sc. Data Science  
+- **Institution:** Dhirubhai Ambani University (DAU), Gandhinagar  
+- **Role in Project:** Data Engineer  
+
+👨‍💻 **Aksh Patel**  
+- **Student ID:** 202518046  
+- **Program:** M.Sc. Data Science  
+- **Institution:** Dhirubhai Ambani University (DAU), Gandhinagar  
+- **Role in Project:** Data Engineer  
+
+---
+*This recommender system is part of the larger DS614 Faculty Finder project, demonstrating the end-to-end application of Big Data Engineering principles.*
