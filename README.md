@@ -90,7 +90,7 @@ The following screenshots demonstrate the Faculty Finder application in action:
 
 ## Team
 
-👩‍💻 **Sanjana Nathani**  
+👩‍💻 **Sanjana Nathani**
 - **Student ID:** 202518002  
 - **Program:** M.Sc. Data Science  
 - **Institution:** Dhirubhai Ambani University (DAU), Gandhinagar  
