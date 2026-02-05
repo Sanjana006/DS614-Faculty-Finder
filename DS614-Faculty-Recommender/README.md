@@ -39,13 +39,28 @@ Raw text from faculty profiles (bio, research interests, publications) is proces
 ### 2. Vectorization (TF-IDF) (`recommender/vectorizer.py`)
 The system converts text into numerical vectors using **Term Frequency - Inverse Document Frequency (TF-IDF)**.
 
-- **Term Frequency (TF)**: Measures how often a word appears in a specific document (faculty profile).
-  $$ TF(t, d) = \frac{\text{count with } t \text{ in } d}{\text{total words in } d} $$
+- **Term Frequency (TF)**: Measures how frequently a term appears in a document relative to the document's length.
   
-- **Inverse Document Frequency (IDF)**: Measures how unique a word is across all documents. Rare words (like "Bioinformatics") get higher weights than common words (like "Professor").
+  $$ TF(t, d) = \frac{f_{t,d}}{|d|} $$
+  
+  Where:
+  - $t$ = term (word/token)
+  - $d$ = document (faculty profile)
+  - $f_{t,d}$ = frequency of term $t$ in document $d$
+  - $|d|$ = total number of terms in document $d$
+  
+- **Inverse Document Frequency (IDF)**: Measures how unique a term is across all documents. Rare terms (like "Bioinformatics") receive higher weights than common terms (like "Professor").
+  
   $$ IDF(t) = \log\left(\frac{N + 1}{DF(t) + 1}\right) + 1 $$
   
-  *Where $N$ is the total number of faculty and $DF(t)$ is the number of profiles containing the term $t$.*
+  Where:
+  - $N$ = total number of documents (faculty profiles)
+  - $DF(t)$ = document frequency (number of profiles containing term $t$)
+  - The $+1$ terms provide smoothing to avoid division by zero
+  
+- **TF-IDF Score**: The final weight for each term is computed as:
+  
+  $$ \text{TF-IDF}(t, d) = TF(t, d) \times IDF(t) $$
 
 ### 3. Document Weighting (`recommender/index_builder.py`)
 To improve relevance, different sections of a faculty profile are weighted differently before vectorization:
