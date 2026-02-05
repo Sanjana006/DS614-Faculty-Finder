@@ -43,7 +43,10 @@ cd DS614-Faculty-Recommender
 docker build -t faculty-app .
 docker run -p 8080:8080 faculty-app
 ```
-
+Click on the link: 
+```bash
+Local URL: [http://localhost:8080]
+```
 ---
 
 ## Recommendation Algorithm
