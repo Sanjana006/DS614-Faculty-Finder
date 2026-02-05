@@ -84,9 +84,7 @@ This ensures that a match in a professor's "Research Interests" is more signific
 ### 4. Similarity & Ranking (`recommender/similarity.py`)
 When a user searches, their query is converted into a vector using the same TF-IDF model. The system then calculates the **Cosine Similarity** between the query vector and every faculty profile vector.
 
-```
-Cosine Similarity(A, B) = (A · B) / (||A|| × ||B||)
-```
+$$ \text{Cosine Similarity}(A, B) = \frac{A \cdot B}{||A|| \times ||B||} $$
 
 **Where:**
 - `A · B` = dot product of vectors A and B
