@@ -16,8 +16,8 @@ RUN python -m pip install --upgrade pip && \
 # Copy entire project
 COPY . .
 
-# Expose both ports for FastAPI and Streamlit
-EXPOSE 8001 8501
+# Expose Streamlit port
+EXPOSE 8501
 
-# Start both FastAPI (port 8001) and Streamlit (port 8501)
-CMD ["sh", "-c", "uvicorn app.api.main:app --host 0.0.0.0 --port 8001 & streamlit run UI/streamlit_app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true"]
+# Run only Streamlit with dynamic PORT support for Railway
+CMD streamlit run UI/streamlit_app.py --server.port ${PORT:-8501} --server.address 0.0.0.0 --server.headless true

@@ -1,6 +1,6 @@
 [build]
 builder = "DOCKERFILE"
-dockerfilePath = "DS614-Faculty-Finder/Dockerfile"
+dockerfilePath = "DS614-Faculty-Recommender/Dockerfile"
 
 [deploy]
 restartPolicyType = "ON_FAILURE"
