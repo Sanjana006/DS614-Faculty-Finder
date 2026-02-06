@@ -16,9 +16,8 @@ RUN python -m pip install --upgrade pip && \
 # Copy entire project
 COPY . .
 
-# Expose default port (Railway will override this via the PORT env var)
-EXPOSE 8080
+# Expose both ports for FastAPI and Streamlit
+EXPOSE 8001 8501
 
-# The default command will start the Streamlit app.
-# For Railway, you can create two services and override the start command for each.
-CMD ["sh", "-c", "streamlit run UI/streamlit_app.py --server.port ${PORT:-8080} --server.address 0.0.0.0"]
+# Start both FastAPI (port 8001) and Streamlit (port 8501)
+CMD ["sh", "-c", "uvicorn app.api.main:app --host 0.0.0.0 --port 8001 & streamlit run UI/streamlit_app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true"]
