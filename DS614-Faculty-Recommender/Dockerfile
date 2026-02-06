@@ -9,12 +9,12 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python deps
-COPY DS614-Faculty-Recommender/requirements.txt .
+COPY requirements.txt .
 RUN python -m pip install --upgrade pip && \
     python -m pip install --no-cache-dir -r requirements.txt
 
 # Copy entire project
-COPY DS614-Faculty-Recommender/ .
+COPY . .
 
 # Expose ports
 EXPOSE 8001

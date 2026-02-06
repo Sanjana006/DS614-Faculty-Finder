@@ -1,8 +1,6 @@
 services:
   faculty-recommender:
-    build:
-      context: ..
-      dockerfile: DS614-Faculty-Recommender/Dockerfile
+    build: .
     container_name: faculty-app
     ports:
       - "8001:8001" # FastAPI backend
