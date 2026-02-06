@@ -20,6 +20,10 @@ COPY . .
 EXPOSE 8001
 EXPOSE 8501
 
-# Run both FastAPI (port 8001) and Streamlit (port 8501)
-CMD uvicorn app.api.main:app --host 0.0.0.0 --port 8001 & \
-    streamlit run UI/streamlit_app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true
+# Run both services locally, or only Streamlit on Railway with dynamic PORT
+CMD if [ -n "$PORT" ]; then \
+    streamlit run UI/streamlit_app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true; \
+    else \
+    uvicorn app.api.main:app --host 0.0.0.0 --port 8001 & \
+    streamlit run UI/streamlit_app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true; \
+    fi
