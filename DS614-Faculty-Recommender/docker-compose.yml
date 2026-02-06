@@ -3,8 +3,8 @@ services:
     build: .
     container_name: faculty-app
     ports:
-      - "8001:8001"
-      - "8501:8501"
+      - "8001:8001" # FastAPI backend
+      - "8501:8501" # Streamlit frontend
     restart: unless-stopped
     volumes:
       - ./:/app
